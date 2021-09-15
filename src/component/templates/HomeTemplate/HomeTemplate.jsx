@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Home from "../../organisms/Home/home";
+import Home from "../../organisms/Home";
 import styles from "./home-template.module.scss";
 
 const HomeTemplate = () => {
