@@ -1,7 +1,7 @@
 import React from "react";
 
-const Heading = () => {
-  return <h1>Aashutosh Prakash</h1>;
+const Heading = ({ content, Type }) => {
+  return <Type>{content}</Type>;
 };
 
 export default Heading;

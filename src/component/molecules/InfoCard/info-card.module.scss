@@ -1,0 +1,10 @@
+$description-font-color: #0070f3;
+
+.infoCard {
+  &__role {
+    color: $description-font-color;
+  }
+  &__description {
+    font-size: 14px;
+  }
+}
