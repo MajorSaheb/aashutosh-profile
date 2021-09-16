@@ -1,10 +1,18 @@
-$description-font-color: #0070f3;
+$text-color: #0070f3;
 
 .infoCard {
-  &__role {
-    color: $description-font-color;
-  }
   &__description {
     font-size: 14px;
+  }
+
+  &__link {
+    color: $text-color;
+    border: none;
+    background: transparent;
+    padding: 0;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
   }
 }
