@@ -9,13 +9,13 @@ const getRandomInt = (max) => Math.floor(Math.random() * max);
 const content = {
   heading: "Brain Game",
   description: "This game is created with ReactJS, HTML & CSS ❤️",
-  instruction: "You can use Arrow keys or touch to play.",
+  instruction: "You can use arrow keys or swipe to play.",
   startBtn: "START GAME",
   stopBtn: "PAUSE GAME",
 };
 
 const Game = () => {
-  const [moveDirection, setMoveDirection] = useState("top");
+  const [moveDirection, setMoveDirection] = useState("right");
   const [gameSpeed, setGameSpeed] = useState(null);
   const [score, setScore] = useState(0);
   const [foodPosition, setFoodPosition] = useState({ top: "10%", left: "90%" });
@@ -77,26 +77,14 @@ const Game = () => {
     }
   };
   useEffect(() => {
-    document
-      .getElementById("game-container")
-      .addEventListener("keydown", handleController);
-    document
-      .getElementById("game-container")
-      .addEventListener("touchmove", throttledTouchEvent);
-    document
-      .getElementById("game-container")
-      .addEventListener("touchcancel", handleTouchCancel);
+    document.addEventListener("keydown", handleController);
+    document.addEventListener("touchmove", throttledTouchEvent);
+    document.addEventListener("touchcancel", handleTouchCancel);
     setNewFood();
     return () => {
-      document
-        .getElementById("game-container")
-        .removeEventListener("keydown", handleController);
-      document
-        .getElementById("game-container")
-        .removeEventListener("touchmove", throttledTouchEvent);
-      document
-        .getElementById("game-container")
-        .removeEventListener("touchcancel", handleTouchCancel);
+      document.removeEventListener("keydown", handleController);
+      document.removeEventListener("touchmove", throttledTouchEvent);
+      document.removeEventListener("touchcancel", handleTouchCancel);
     };
   }, []);
 
