@@ -1,6 +1,6 @@
 import React from "react";
 
-const Heading = ({ content, Type }) => {
+const Heading = ({ content, Type = "h1" }) => {
   return <Type>{content}</Type>;
 };
 

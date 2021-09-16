@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Button from "../../atoms/Button";
 import Heading from "../../atoms/Heading";
 import styles from "./info-card.module.scss";
@@ -19,7 +20,9 @@ const InfoCard = () => {
     <>
       <p>{content.greeting}</p>
       <Heading content={content.name} Type="h1" />
-      <p className={styles.infoCard__role}>{content.developer}</p>
+      <Link href="/game">
+        <a className={styles.infoCard__link}>{content.developer}</a>
+      </Link>
       <p className={styles.infoCard__description}>{content.description}</p>
       <Button
         content={content.buttonContent}

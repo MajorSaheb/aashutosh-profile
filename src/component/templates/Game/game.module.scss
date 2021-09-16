@@ -1,0 +1,39 @@
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+.screen {
+  height: 350px;
+  width: 350px;
+  background-color: #ffe4c4;
+  position: relative;
+  border-radius: 8px;
+}
+.player {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.food {
+  position: absolute;
+  top: 20%;
+  left: 80%;
+}
+.description,
+.instruction {
+  font-size: 14px;
+  color: darkgrey;
+  margin: 0;
+  margin-bottom: 8px;
+  padding: 0;
+}
+.result {
+  margin-bottom: 12px;
+}
+.playControl {
+  display: flex;
+  flex-direction: row;
+}

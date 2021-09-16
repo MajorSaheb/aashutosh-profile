@@ -1,13 +1,5 @@
 import Head from "next/head";
-import dynamic from "next/dynamic";
-import "./globals.scss";
-
-const HomeTemplate = dynamic(
-  () => {
-    return import("../src/component/templates/HomeTemplate");
-  },
-  { ssr: false }
-);
+import "../src/styles/globals.scss";
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -16,8 +8,9 @@ export default function MyApp({ Component, pageProps }) {
         <title>Aashutosh Profile</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <HomeTemplate />
+      <main>
+        <Component />
+      </main>
     </>
   );
 }

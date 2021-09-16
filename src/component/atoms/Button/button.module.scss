@@ -1,6 +1,6 @@
 $button-color: #0070f3;
 
-.button {
+.primary {
   background-color: $button-color;
   padding: 10px;
   border: none;
@@ -8,5 +8,14 @@ $button-color: #0070f3;
   font-size: 14px;
   border-radius: 8px;
   margin: 12px 0;
+  cursor: pointer;
+}
+.game {
+  padding: 16px;
+  margin: 24px 10px;
+  border: 1px solid #619200;
+  background: #e4ffe4;
+  border-radius: 4px;
+  font-size: 20px;
   cursor: pointer;
 }
