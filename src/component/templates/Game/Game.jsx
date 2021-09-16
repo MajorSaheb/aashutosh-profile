@@ -8,7 +8,7 @@ import { throttleFunction } from "../../../jsUtils";
 const getRandomInt = (max) => Math.floor(Math.random() * max);
 const content = {
   heading: "Brain Game",
-  description: "This game is created with ReactJS, HTML & CSS ❤️",
+  description: "This game is developed on ReactJS with ❤️.",
   instruction: "You can use arrow keys or swipe to play.",
   startBtn: "START GAME",
   stopBtn: "PAUSE GAME",
