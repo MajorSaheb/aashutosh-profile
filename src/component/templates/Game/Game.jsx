@@ -80,6 +80,9 @@ const Game = () => {
     document.addEventListener("keydown", handleController);
     document.addEventListener("touchmove", throttledTouchEvent);
     document.addEventListener("touchcancel", handleTouchCancel);
+    document.addEventListener("touchstart", function (e) {
+      e.preventDefault();
+    });
     setNewFood();
     return () => {
       document.removeEventListener("keydown", handleController);
