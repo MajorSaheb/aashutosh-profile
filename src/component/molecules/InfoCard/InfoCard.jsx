@@ -7,7 +7,8 @@ import styles from "./info-card.module.scss";
 const content = {
   greeting: "HI THERE 👋 , I'M",
   name: "Aashutosh Prakash",
-  developer: "DEVELOPER 👨‍💻",
+  developer: "DEVELOPER",
+  devEmoji: "👨‍💻",
   description: "I'm a experienced UI Developer and a cloud enthusiast.",
   buttonContent: "Let's Connect",
 };
@@ -23,6 +24,7 @@ const InfoCard = () => {
       <Link href="/game">
         <a className={styles.infoCard__link}>{content.developer}</a>
       </Link>
+      {content.devEmoji}
       <p className={styles.infoCard__description}>{content.description}</p>
       <Button
         content={content.buttonContent}

@@ -3,12 +3,13 @@ import styles from "./game.module.scss";
 import { useInterval } from "../../../customHooks/useInterval";
 import Button from "../../atoms/Button";
 import Heading from "../../atoms/Heading";
+import BackButton from "../../atoms/BackButton";
 import { throttleFunction } from "../../../jsUtils";
 
 const getRandomInt = (max) => Math.floor(Math.random() * max);
 const content = {
   heading: "Brain Game",
-  description: "This game is developed on ReactJS with ❤️.",
+  description: "This game is developed in ReactJS with ❤️.",
   instruction: "You can use arrow keys or swipe to play.",
   startBtn: "START GAME",
   stopBtn: "PAUSE GAME",
@@ -44,13 +45,15 @@ const Game = () => {
     // food emoji should between 95% max and 1% min
     const newTop = `${getRandomInt(maxPosition) + 1}%`;
     const newLeft = `${getRandomInt(maxPosition) + 1}%`;
-    document.getElementById("food").style.top = newTop;
-    document.getElementById("food").style.left = newLeft;
+    const foodElm = document.getElementById("food");
+    foodElm.style.top = newTop;
+    foodElm.style.left = newLeft;
     setFoodPosition({ top: newTop, left: newLeft });
   };
   const checkFood = () => {
-    const playerTop = parseInt(document.getElementById("player").style.top);
-    const playerLeft = parseInt(document.getElementById("player").style.left);
+    const playerElm = document.getElementById("player");
+    const playerTop = parseInt(playerElm.style.top);
+    const playerLeft = parseInt(playerElm.style.left);
     const foodTop = parseInt(foodPosition.top);
     const foodLeft = parseInt(foodPosition.left);
     if (
@@ -65,28 +68,30 @@ const Game = () => {
   };
   const movePlayer = ({ direction, isIncrement }) => {
     const val = isIncrement ? 1 : -1;
-    checkFood();
-    if (direction === "top") {
-      const currentPosition = document.getElementById("player").style.top;
-      const validPosition = getValidPosition(currentPosition);
-      document.getElementById("player").style.top = `${validPosition + val}%`;
-    } else {
-      const currentPosition = document.getElementById("player").style.left;
-      const validPosition = getValidPosition(currentPosition);
-      document.getElementById("player").style.left = `${validPosition + val}%`;
+    const playerElm = document.getElementById("player");
+    if (playerElm) {
+      checkFood();
+      if (direction === "top") {
+        const currentPosition = playerElm.style.top;
+        const validPosition = getValidPosition(currentPosition);
+        playerElm.style.top = `${validPosition + val}%`;
+      } else {
+        const currentPosition = playerElm.style.left;
+        const validPosition = getValidPosition(currentPosition);
+        playerElm.style.left = `${validPosition + val}%`;
+      }
     }
   };
   useEffect(() => {
     document.addEventListener("keydown", handleController);
-    document.addEventListener("touchmove", throttledTouchEvent);
-    document.addEventListener("touchcancel", handleTouchCancel);
-    document.addEventListener("touchstart", function (e) {
-      e.preventDefault();
+    document.body.addEventListener("touchmove", throttledTouchEvent, {
+      passive: false,
     });
+    document.addEventListener("touchcancel", handleTouchCancel);
     setNewFood();
     return () => {
       document.removeEventListener("keydown", handleController);
-      document.removeEventListener("touchmove", throttledTouchEvent);
+      document.body.removeEventListener("touchmove", throttledTouchEvent);
       document.removeEventListener("touchcancel", handleTouchCancel);
     };
   }, []);
@@ -143,7 +148,7 @@ const Game = () => {
     }
   };
 
-  const throttledTouchEvent = throttleFunction(handleTouch, 100);
+  const throttledTouchEvent = throttleFunction(handleTouch, 70);
 
   const handleController = (e) => {
     if (e.keyCode) {
@@ -165,6 +170,7 @@ const Game = () => {
   };
   return (
     <div id="game-container" className={styles.gameContainer}>
+      <BackButton />
       <Heading content={content.heading} Type="h1" />
       <p className={styles.description}>{content.description}</p>
       <p className={styles.instruction}>{content.instruction}</p>

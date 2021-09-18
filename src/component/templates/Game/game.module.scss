@@ -4,6 +4,7 @@
   height: 90vh;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .screen {
   height: 350px;
@@ -36,4 +37,10 @@
 .playControl {
   display: flex;
   flex-direction: row;
+}
+
+@media only screen and (max-width: 370px) {
+  .screen {
+    width: 90vw;
+  }
 }
