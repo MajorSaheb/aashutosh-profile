@@ -90,16 +90,17 @@ const Game = () => {
     }
   };
   useEffect(() => {
+    const gamePlayground = document.getElementById("game-playground");
     document.addEventListener("keydown", handleController);
-    document.body.addEventListener("touchmove", throttledTouchEvent, {
+    gamePlayground.addEventListener("touchmove", throttledTouchEvent, {
       passive: false,
     });
-    document.addEventListener("touchcancel", handleTouchCancel);
+    gamePlayground.addEventListener("touchcancel", handleTouchCancel);
     setNewFood();
     return () => {
       document.removeEventListener("keydown", handleController);
-      document.body.removeEventListener("touchmove", throttledTouchEvent);
-      document.removeEventListener("touchcancel", handleTouchCancel);
+      gamePlayground.removeEventListener("touchmove", throttledTouchEvent);
+      gamePlayground.removeEventListener("touchcancel", handleTouchCancel);
     };
   }, []);
 
@@ -194,7 +195,7 @@ const Game = () => {
       <p className={styles.description}>{content.description}</p>
       <p className={styles.instruction}>{content.instruction}</p>
       <output className={styles.result}>🏆 Score: {score}</output>
-      <div className={styles.screen}>
+      <div className={styles.screen} id="game-playground">
         <div id="player" className={styles.player}>
           🧠
         </div>
