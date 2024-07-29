@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./back-button.module.scss";
+import LeftChevron from "./LeftChevron";
 
-const BackButton = () => {
+const BackButton = ({ isDarkTheme }) => {
   return (
-    <Link href="/">
-      <button aria-label="navigate to home" className={styles.back_button}>
-        <img src="/left-chevron.png" alt="" />
-      </button>
+    <Link href="/" aria-label="navigate to home" className={styles.back_button}>
+      {/* <img src="/left-chevron.png" alt="" /> */}
+      <LeftChevron className={isDarkTheme ? styles.dark_theme : ""} />
     </Link>
   );
 };

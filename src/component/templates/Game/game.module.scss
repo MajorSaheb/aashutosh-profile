@@ -1,11 +1,23 @@
 .gameContainer {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding-bottom: 70px;
+
+  &__dark {
+    @extend .gameContainer;
+    background-color: black;
+    color: white;
+  }
+  &__light {
+    @extend .gameContainer;
+    background-color: white;
+  }
 }
+
 .screen {
   height: 350px;
   width: 350px;
@@ -37,6 +49,10 @@
 .playControl {
   display: flex;
   flex-direction: row;
+  .pauseBtn {
+    width: 318px;
+    color: #619200;
+  }
 }
 
 @media only screen and (max-width: 370px) {

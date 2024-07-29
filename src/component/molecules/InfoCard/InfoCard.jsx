@@ -9,8 +9,12 @@ const content = {
   name: "Aashutosh Prakash",
   developer: "DEVELOPER",
   devEmoji: "👨‍💻",
-  description: "I'm a experienced UI Developer and a cloud enthusiast.",
+  gameEmoji: "🎮",
+  // description: "I'm an experienced UI Developer and a cloud enthusiast.",
+  description:
+    "I’m specialized in Front-End Transformation, with a passion for Cloud Technologies.",
   buttonContent: "Let's Connect",
+  note: "NOTE: Site support device dark mode."
 };
 
 const InfoCard = () => {
@@ -21,9 +25,11 @@ const InfoCard = () => {
     <>
       <p>{content.greeting}</p>
       <Heading content={content.name} Type="h1" />
-      <Link href="/game">
-        <a className={styles.infoCard__link}>{content.developer}</a>
+      <Link href="/game" className={styles.infoCard__link}>
+        {content.developer}
       </Link>
+      &nbsp;
+      {content.gameEmoji}
       {content.devEmoji}
       <p className={styles.infoCard__description}>{content.description}</p>
       <Button
@@ -31,6 +37,7 @@ const InfoCard = () => {
         type="button"
         handler={handleConnect}
       />
+      <p className={styles.infoCard__note}>{content.note}</p>
     </>
   );
 };

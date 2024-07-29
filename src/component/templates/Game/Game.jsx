@@ -5,14 +5,33 @@ import Button from "../../atoms/Button";
 import Heading from "../../atoms/Heading";
 import BackButton from "../../atoms/BackButton";
 import { throttleFunction } from "../../../jsUtils";
+import { useDarkMode } from "../../../customHooks/useDarkMode";
 
-const getRandomInt = (max) => Math.floor(Math.random() * max);
 const content = {
-  heading: "Brain Game",
-  description: "This game is developed in ReactJS with ❤️.",
-  instruction: "You can use arrow keys or swipe to play.",
+  heading: "Brain Feast",
+  description: "This game is developed in ReactJS.",
+  instruction: "Play using the arrow keys OR touch & drag.🎮",
   startBtn: "START GAME",
   stopBtn: "PAUSE GAME",
+};
+
+const getRandomInt = (max) => Math.floor(Math.random() * max);
+const PLAYER_MOVEMENT_INTERNAL = 55;
+
+const maxPosition = 94;
+const minPosition = 0;
+const getValidPosition = (position) => {
+  const intPosition = parseInt(position);
+  if (intPosition >= maxPosition) {
+    return minPosition;
+  }
+  if (intPosition <= minPosition) {
+    return maxPosition;
+  }
+  if (!intPosition) {
+    return 50;
+  }
+  return intPosition;
 };
 
 const Game = () => {
@@ -22,25 +41,13 @@ const Game = () => {
   const [foodPosition, setFoodPosition] = useState({ top: "10%", left: "90%" });
   const [lastTouchAxis, setLastTouchAxis] = useState({ x: 0, y: 0 });
   const myStateRef = React.useRef(lastTouchAxis);
+  const isDarkTheme = useDarkMode();
+
   const setLastTouchAxisOutSideListener = (data) => {
     myStateRef.current = data;
     setLastTouchAxis(data);
   };
-  const maxPosition = 94;
-  const minPosition = 0;
-  const getValidPosition = (position) => {
-    const intPosition = parseInt(position);
-    if (intPosition >= maxPosition) {
-      return minPosition;
-    }
-    if (intPosition <= minPosition) {
-      return maxPosition;
-    }
-    if (!intPosition) {
-      return 50;
-    }
-    return intPosition;
-  };
+
   const setNewFood = () => {
     // food emoji should between 95% max and 1% min
     const newTop = `${getRandomInt(maxPosition) + 1}%`;
@@ -118,11 +125,18 @@ const Game = () => {
   }, gameSpeed);
 
   const startGame = () => {
-    setGameSpeed(70);
+    setGameSpeed(PLAYER_MOVEMENT_INTERNAL);
   };
 
-  const stopGame = () => {
+  const pauseGame = () => {
     setGameSpeed(null);
+  };
+
+  const startAndSetMoveDir = (dir) => {
+    if (!gameSpeed) {
+      startGame();
+    }
+    setMoveDirection(dir);
   };
 
   const handleTouch = (e) => {
@@ -136,45 +150,50 @@ const Game = () => {
       const isXAxis = Math.abs(xDiff) > Math.abs(yDiff);
       const isIncrement = Math.sign(moveAxisVal) > 0;
       if (isXAxis && isIncrement) {
-        setMoveDirection("right");
+        startAndSetMoveDir("right");
       } else if (isXAxis && !isIncrement) {
-        setMoveDirection("left");
+        startAndSetMoveDir("left");
       } else if (!isXAxis && isIncrement) {
-        setMoveDirection("bottom");
+        startAndSetMoveDir("bottom");
       } else if (!isXAxis && !isIncrement) {
-        setMoveDirection("top");
+        startAndSetMoveDir("top");
       }
       setLastTouchAxisOutSideListener({ x: userX, y: userY });
     }
   };
 
-  const throttledTouchEvent = throttleFunction(handleTouch, 70);
+  const throttledTouchEvent = throttleFunction(handleTouch, 30);
 
   const handleController = (e) => {
     if (e.keyCode) {
       switch (e.keyCode) {
         case 38:
-          setMoveDirection("top");
+          startAndSetMoveDir("top");
           break;
         case 40:
-          setMoveDirection("bottom");
+          startAndSetMoveDir("bottom");
           break;
         case 37:
-          setMoveDirection("left");
+          startAndSetMoveDir("left");
           break;
         case 39:
-          setMoveDirection("right");
+          startAndSetMoveDir("right");
           break;
       }
     }
   };
   return (
-    <div id="game-container" className={styles.gameContainer}>
-      <BackButton />
+    <div
+      id="game-container"
+      className={
+        isDarkTheme ? styles.gameContainer__dark : styles.gameContainer__light
+      }
+    >
+      <BackButton isDarkTheme={isDarkTheme} />
       <Heading content={content.heading} Type="h1" />
       <p className={styles.description}>{content.description}</p>
       <p className={styles.instruction}>{content.instruction}</p>
-      <output className={styles.result}>Score: {score}</output>
+      <output className={styles.result}>🏆 Score: {score}</output>
       <div className={styles.screen}>
         <div id="player" className={styles.player}>
           🧠
@@ -185,16 +204,11 @@ const Game = () => {
       </div>
       <div className={styles.playControl}>
         <Button
-          content={content.startBtn}
-          type="button"
-          handler={startGame}
-          variant="game"
-        />
-        <Button
           content={content.stopBtn}
           type="button"
-          handler={stopGame}
+          handler={pauseGame}
           variant="game"
+          addClasses={styles.pauseBtn}
         />
       </div>
     </div>

@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import Home from "../../organisms/Home";
 import styles from "./home-template.module.scss";
+import { useDarkMode } from "../../../customHooks/useDarkMode";
 
 const HomeTemplate = () => {
-  const [isDarkTheme, setTheme] = useState(
-    window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-  );
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
-      setTheme(e.matches);
-    });
+  const isDarkTheme = useDarkMode()
 
   return (
     <div
