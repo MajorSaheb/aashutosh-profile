@@ -14,14 +14,46 @@ $text-color: #0070f3;
     font-size: 16px;
     cursor: pointer;
   }
+  &__projects {
+    margin: 36px 0 4px;
+  }
+  &__projectsTitle {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: gray;
+    margin: 0 0 6px;
+  }
+  &__projectsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  &__projectsItem {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 4px;
+  }
+  &__projectsLink {
+    color: $text-color;
+    text-decoration: none;
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__projectsDesc {
+    color: inherit;
+    opacity: 0.6;
+  }
   &__socials {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin: 18px 0 8px;
+    margin: 28px 0 8px;
   }
   &__linkedin,
-  &__x {
+  &__x,
+  &__github {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +66,8 @@ $text-color: #0070f3;
   &__linkedin {
     color: #0a66c2;
   }
-  &__x {
+  &__x,
+  &__github {
     color: inherit;
   }
   &__note {
