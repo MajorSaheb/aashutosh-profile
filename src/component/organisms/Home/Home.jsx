@@ -1,10 +1,10 @@
 import React from "react";
 import InfoCard from "../../molecules/InfoCard";
-import "./home.module.scss";
+import styles from "./home.module.scss";
 
 export default function Home() {
   return (
-    <div className="home">
+    <div className={styles.home}>
       <InfoCard />
     </div>
   );
